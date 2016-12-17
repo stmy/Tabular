@@ -1,19 +1,3 @@
-/*
- * Copyright 2016- stmy <http://stmy.github.io/>
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * 
- * <http://www.apache.org/licenses/LICENSE-2.0>
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.github.stmy.util.tabular;
 
 import java.util.ArrayList;
@@ -28,7 +12,7 @@ public class Tabular {
 	protected String separator = " ";
 	
 	public Tabular() {
-		header = Optional.<Row>empty();
+		header = Optional.empty();
 		rows = new ArrayList<Row>();
 	}
 	
@@ -48,14 +32,27 @@ public class Tabular {
 		return rows.get(index);
 	}
 	
+	public void setHeader(Row header) {
+		this.header = Optional.of(header);
+	}
+	
+	public void setHeader(Object[] columns) {
+		this.setHeader(new Row(columns));
+	}
+	
+	public Row getHeader() {
+		return header.orElse(null);
+	}
+	
 	public void clear() {
-		header = Optional.<Row>empty();
+		header = Optional.empty();
 		rows.clear();
 	}
 	
 	@Override
 	public String toString() {
 		int[] maxWidths = getMaximumWidths();
+
 		boolean isFirst = true;
 		
 		StringBuilder sb = new StringBuilder();
@@ -106,10 +103,14 @@ public class Tabular {
 	}
 	
 	protected int getColumnSize() {
-		return rows.stream()
-				.map(x -> x.size())
-				.max(Comparator.comparing(x -> x))
-				.get();
+		int headerColumns = header.isPresent()
+								? header.get().size() : 0;  
+		int maxBodyColumns = rows.stream()
+								.map(x -> x.size())
+								.max(Comparator.comparing(x -> x))
+								.get();
+		
+		return Math.max(headerColumns, maxBodyColumns);
 	}
 	
 	protected int[] getMaximumWidths() {
@@ -123,10 +124,14 @@ public class Tabular {
 	}
 	
 	protected int getMaximumWidth(int index) {
-		return rows.stream()
-				.map(x -> (x.size() <= index) ? 0 : getStringWidth(x.get(index))) // 行に存在しない列は0幅扱い
-				.max(Comparator.comparing(x -> x))
-				.get();
+		int headerWidth = header.isPresent()
+							? getStringWidth(header.get().get(index)) : 0;
+		int maxBodyWidth = rows.stream()
+							.map(x -> (x.size() <= index) ? 0 : getStringWidth(x.get(index))) // 行に存在しない列は0幅扱い
+							.max(Comparator.comparing(x -> x))
+							.get();
+		
+		return Math.max(headerWidth, maxBodyWidth);
 	}
 	
 	protected int getStringWidth(Object o) {
