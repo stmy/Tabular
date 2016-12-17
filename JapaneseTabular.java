@@ -17,22 +17,22 @@
 package com.github.stmy.util.tabular;
 
 public class JapaneseTabular extends Tabular {
-	@Override
-	protected int getStringWidth(Object o) {
-		int width = 0;
-		for (int c : o.toString().toCharArray()) {
-			// 本来ならUnicodeのEast Asian Widthプロパティを参照するべきだが、
-			// http://www.alqmst.co.jp/tech/040601.html の方法で判定
-			if (c <  0x007e || // a-zA-Z0-9
-				c == 0x00a5 || // \
-				c == 0x203e || // ~
-				(c >= 0xff61 && c <= 0xff9f) // 半角カナ
-				) {
-				width += 1;
-			} else {
-				width += 2;
-			}
-		}
-		return width;
-	}
+    @Override
+    protected int getStringWidth(Object o) {
+        int width = 0;
+        for (int c : o.toString().toCharArray()) {
+            // 本来ならUnicodeのEast Asian Widthプロパティを参照するべきだが、
+            // http://www.alqmst.co.jp/tech/040601.html の方法で判定
+            if (c <  0x007e || // a-zA-Z0-9
+                c == 0x00a5 || // \
+                c == 0x203e || // ~
+                (c >= 0xff61 && c <= 0xff9f) // 半角カナ
+                ) {
+                width += 1;
+            } else {
+                width += 2;
+            }
+        }
+        return width;
+    }
 }
