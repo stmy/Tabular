@@ -92,13 +92,13 @@ public class Tabular {
 		boolean isNumber = value instanceof Number;
 		
 		if (!isNumber) {
-			sb.append(value.toString());
+			sb.append(value != null ? value.toString() : "");
 		}
 		for (int i = 0; i < maxWidth - width; i++) {
 			sb.append(" ");
 		}
 		if (isNumber) {
-			sb.append(value.toString());
+			sb.append(value != null ? value.toString() : "");
 		}
 	}
 	
@@ -135,6 +135,6 @@ public class Tabular {
 	}
 	
 	protected int getStringWidth(Object o) {
-		return o.toString().length();
+		return o != null ? o.toString().length() : 0;
 	}
 }
