@@ -2,6 +2,16 @@
 
 Prints simple tabular output in console.
 
+## Build
+
+Run command
+
+```
+$ gradlew build
+```
+
+will generates jar archive on `./build/libs`.
+
 ## Sample Code
 
 Code:
