@@ -7,7 +7,7 @@ Prints simple tabular output in console.
 Run command
 
 ```
-$ gradlew build
+$ ./gradlew build
 ```
 
 will generates jar archive on `./build/libs`.
