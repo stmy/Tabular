@@ -104,7 +104,7 @@ public class Tabular {
     }
     
     protected void printValue(StringBuilder sb, int maxWidth, Object value) {
-        int width = getStringWidth(value.toString());
+        int width = value != null ? getStringWidth(value.toString()) : 0;
         boolean isNumber = value instanceof Number;
         
         if (!isNumber) {
