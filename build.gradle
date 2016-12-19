@@ -20,7 +20,7 @@ tasks.withType(JavaCompile).each {
 
 // Version
 project.group = 'com.github.stmy'
-project.version = '0.1.0'
+project.version = '0.1.1'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
