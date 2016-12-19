@@ -7,6 +7,11 @@
  * user guide available at https://docs.gradle.org/3.2.1/userguide/tutorial_java_projects.html
  */
 
+// Apply the java plugin to add support for Java
+apply plugin: 'java'
+apply plugin: 'maven'
+
+
 // Encoding
 def defaultEncoding = 'UTF-8'
 tasks.withType(JavaCompile).each { 
@@ -16,10 +21,6 @@ tasks.withType(JavaCompile).each {
 // Version
 project.group = 'com.github.stmy'
 project.version = '0.1.0'
-
-// Apply the java plugin to add support for Java
-apply plugin: 'java'
-apply plugin: 'maven'
 
 // In this section you declare where to find the dependencies of your project
 repositories {
