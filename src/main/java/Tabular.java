@@ -124,7 +124,7 @@ public class Tabular {
         int maxBodyColumns = rows.stream()
                                 .map(x -> x.size())
                                 .max(Comparator.comparing(x -> x))
-                                .get();
+                                .orElse(0);
         
         return Math.max(headerColumns, maxBodyColumns);
     }
@@ -145,7 +145,7 @@ public class Tabular {
         int maxBodyWidth = rows.stream()
                             .map(x -> (x.size() <= index) ? 0 : getStringWidth(x.get(index))) // 行に存在しない列は0幅扱い
                             .max(Comparator.comparing(x -> x))
-                            .get();
+                            .orElse(0);
         
         return Math.max(headerWidth, maxBodyWidth);
     }
